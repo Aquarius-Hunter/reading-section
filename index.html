@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Academic Reading Practice</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .exam-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header-gradient {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 16px 16px 0 0;
+            box-shadow: 0 10px 30px rgba(79, 70, 229, 0.3);
+        }
+        
+        .exam-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            background: white;
+            border-radius: 0 0 16px 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .passage-panel {
+            padding: 40px;
+            background: #fafbfc;
+            border-right: 1px solid #e5e7eb;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .questions-panel {
+            padding: 40px;
+            background: white;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .passage-panel::-webkit-scrollbar,
+        .questions-panel::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .passage-panel::-webkit-scrollbar-track,
+        .questions-panel::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        
+        .passage-panel::-webkit-scrollbar-thumb,
+        .questions-panel::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        
+        .passage-panel::-webkit-scrollbar-thumb:hover,
+        .questions-panel::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        .question-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .question-number-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 14px;
+            margin-right: 12px;
+        }
+        
+        .question-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .question-type-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #f3f4f6;
+            color: #4b5563;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-left: auto;
+        }
+        
+        .option-card {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .option-card:hover {
+            background: #f3f4f6;
+            border-color: #4f46e5;
+        }
+        
+        .option-card.selected {
+            background: #eef2ff;
+            border-color: #4f46e5;
+        }
+        
+        .option-card input[type="radio"] {
+            margin-right: 12px;
+            margin-top: 2px;
+            accent-color: #4f46e5;
+        }
+        
+        .option-letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: #4f46e5;
+            color: white;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 12px;
+        }
+        
+        .tf-options {
+            display: flex;
+            gap: 16px;
+            margin-top: 16px;
+        }
+        
+        .tf-option {
+            flex: 1;
+        }
+        
+        .tf-card {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .tf-card:hover {
+            background: #f3f4f6;
+            border-color: #4f46e5;
+        }
+        
+        .tf-card.selected {
+            background: #eef2ff;
+            border-color: #4f46e5;
+        }
+        
+        .tf-card input[type="radio"] {
+            margin-right: 8px;
+            accent-color: #4f46e5;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s ease;
+            background: #f9fafb;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #4f46e5;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+        
+        .matching-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 20px;
+        }
+        
+        .matching-column {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .matching-item {
+            margin-bottom: 16px;
+        }
+        
+        .matching-select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .matching-select:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+        
+        .summary-box {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 20px;
+        }
+        
+        .summary-text {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .summary-blank {
+            display: inline-block;
+            min-width: 100px;
+            margin: 0 4px;
+            padding: 4px 8px;
+            border-bottom: 2px solid #4f46e5;
+            background: white;
+            border-radius: 4px;
+        }
+        
+        .summary-blank input {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            padding: 2px 0;
+        }
+        
+        .summary-blank input:focus {
+            outline: none;
+        }
+        
+        .timer-widget {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            min-width: 200px;
+        }
+        
+        .timer-display {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1f2937;
+            text-align: center;
+            margin-bottom: 16px;
+            font-variant-numeric: tabular-nums;
+        }
+        
+        .timer-display.warning {
+            color: #dc2626;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .timer-controls {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+        
+        .timer-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            background: #f3f4f6;
+            color: #4b5563;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .timer-btn:hover {
+            background: #e5e7eb;
+        }
+        
+        .timer-btn.primary {
+            background: #4f46e5;
+            color: white;
+        }
+        
+        .timer-btn.primary:hover {
+            background: #4338ca;
+        }
+        
+        .control-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            display: flex;
+            gap: 12px;
+        }
+        
+        .control-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .control-btn.primary {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+        }
+        
+        .control-btn.secondary {
+            background: #f3f4f6;
+            color: #4b5563;
+        }
+        
+        .control-btn.danger {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .test-selection {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+        
+        .test-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .test-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .test-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+        
+        .test-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+        
+        .test-category {
+            color: #6b7280;
+            font-size: 14px;
+        }
+        
+        .difficulty-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .difficulty-easy {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .difficulty-medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .difficulty-hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .test-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 20px 0;
+            color: #6b7280;
+            font-size: 14px;
+        }
+        
+        .test-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .test-description {
+            color: #4b5563;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        
+        .start-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+        }
+        
+        .results-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .results-content {
+            background: white;
+            border-radius: 20px;
+            padding: 48px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .results-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+        
+        .results-icon i {
+            font-size: 32px;
+            color: white;
+        }
+        
+        .results-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1f2937;
+        }
+        
+        .results-score {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .results-percentage {
+            font-size: 20px;
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+        
+        .results-time {
+            font-size: 16px;
+            color: #6b7280;
+            margin-bottom: 32px;
+        }
+        
+        .results-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+        
+        .results-btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .results-btn.primary {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+        }
+        
+        .results-btn.secondary {
+            background: #f3f4f6;
+            color: #4b5563;
+        }
+        
+        .results-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .answer-feedback {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 8px;
+            border: 2px solid;
+        }
+        
+        .answer-feedback.correct {
+            background: #f0fdf4;
+            border-color: #22c55e;
+            color: #166534;
+        }
+        
+        .answer-feedback.incorrect {
+            background: #fef2f2;
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+        
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .feedback-details {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        @media (max-width: 1024px) {
+            .exam-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .passage-panel {
+                border-right: none;
+                border-bottom: 1px solid #e5e7eb;
+            }
+            
+            .timer-widget {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin: 20px;
+            }
+            
+            .control-panel {
+                position: relative;
+                bottom: auto;
+                right: auto;
+                margin: 20px;
+            }
+        }
+        
+        @media print {
+            .timer-widget,
+            .control-panel {
+                display: none !important;
+            }
+            
+            .exam-layout {
+                display: block;
+            }
+            
+            .passage-panel,
+            .questions-panel {
+                max-height: none;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        // IELTS-style test data
+        const ieltsTests = [
+            {
+                id: 'renewable-energy',
+                title: 'The Evolution of Renewable Energy',
+                category: 'Environment',
+                difficulty: 'medium',
+                timeLimit: 20,
+                passage: `Over the past century, global energy consumption has increased dramatically, primarily due to industrialization, urbanization, and population growth. Traditionally, fossil fuels such as coal, oil, and natural gas have been the dominant sources of energy. However, concerns about climate change, environmental degradation, and the finite nature of these resources have prompted a shift towards renewable alternatives.
+
+Renewable energy sources—including solar, wind, hydroelectric, and geothermal power—are considered sustainable because they are naturally replenished. For example, solar panels convert sunlight into electricity, while wind turbines harness the kinetic energy of moving air. Hydroelectric dams generate power through flowing water, and geothermal plants utilize heat from beneath the Earth's surface.
+
+Despite their benefits, renewable energy technologies face challenges. Solar and wind power are intermittent, relying on weather conditions, while large hydroelectric projects may disrupt ecosystems and displace communities. Additionally, the initial cost of installing renewable infrastructure can be high, though these costs have been steadily decreasing due to technological improvements.
+
+Governments worldwide are adopting policies to encourage renewable energy use. These include subsidies, tax incentives, and research funding. As renewable energy becomes more affordable and efficient, it is expected to play a central role in achieving a sustainable energy future and reducing dependence on fossil fuels.`,
+                questions: [
+                    {
+                        id: 'q1',
+                        type: 'multiple-choice',
+                        question: 'According to the passage, one reason for the global shift towards renewable energy is:',
+                        options: ['Rising electricity prices', 'Concerns about climate change', 'The abundance of fossil fuels', 'Increasing urban land availability'],
+                        answer: 'Concerns about climate change'
+                    },
+                    {
+                        id: 'q2',
+                        type: 'true-false-ng',
+                        question: 'Renewable energy sources never harm the environment.',
+                        answer: 'False'
+                    },
+                    {
+                        id: 'q3',
+                        type: 'true-false-ng',
+                        question: 'The cost of renewable energy infrastructure has been decreasing over time.',
+                        answer: 'True'
+                    },
+                    {
+                        id: 'q4',
+                        type: 'true-false-ng',
+                        question: 'Governments have remained indifferent to renewable energy development.',
+                        answer: 'False'
+                    },
+                    {
+                        id: 'q5',
+                        type: 'short-answer',
+                        question: 'Which renewable energy source uses heat from beneath the Earth\'s surface?',
+                        answer: 'geothermal',
+                        keywords: ['geothermal', 'geothermal power', 'geothermal energy']
+                    },
+                    {
+                        id: 'q6',
+                        type: 'short-answer',
+                        question: 'Name two challenges of using solar and wind energy. (Write your answer as: challenge1, challenge2)',
+                        answer: 'intermittent, weather dependent',
+                        keywords: ['intermittent', 'weather', 'weather dependent', 'weather conditions']
+                    },
+                    {
+                        id: 'q7',
+                        type: 'matching',
+                        question: 'Match the renewable energy source with its description:',
+                        matches: {
+                            'Solar power': 'Uses sunlight',
+                            'Wind power': 'Depends on moving air',
+                            'Hydroelectric power': 'Uses flowing water',
+                            'Geothermal power': 'Uses underground heat'
+                        },
+                        answer: {
+                            'Solar power': 'Uses sunlight',
+                            'Wind power': 'Depends on moving air',
+                            'Hydroelectric power': 'Uses flowing water',
+                            'Geothermal power': 'Uses underground heat'
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'artificial-intelligence',
+                title: 'The Impact of Artificial Intelligence on Society',
+                category: 'Technology',
+                difficulty: 'hard',
+                timeLimit: 25,
+                passage: `Artificial Intelligence (AI) has emerged as one of the most transformative technologies of the 21st century. From machine learning algorithms that power recommendation systems to sophisticated natural language processing models that can generate human-like text, AI is reshaping numerous aspects of our daily lives and work environments.
+
+The integration of AI into various industries has led to significant improvements in efficiency and productivity. In healthcare, AI-powered diagnostic tools can detect diseases earlier and more accurately than traditional methods. In finance, algorithms analyze market trends and detect fraudulent activities in real-time. Transportation systems benefit from AI through optimized traffic management and the development of autonomous vehicles.
+
+However, the rapid advancement of AI also raises important ethical and societal concerns. The potential for job displacement due to automation affects millions of workers worldwide. Privacy concerns emerge as AI systems collect and analyze vast amounts of personal data. Additionally, the possibility of biased decision-making by AI systems reflects and amplifies existing societal inequalities.
+
+Educational institutions and governments are grappling with how to prepare for an AI-driven future. Initiatives focusing on digital literacy, reskilling programs, and ethical AI development guidelines are being implemented globally. The challenge lies in harnessing AI's benefits while mitigating its risks and ensuring that the technology serves humanity's best interests.
+
+As we move forward, the responsible development and deployment of AI will require collaboration between technologists, policymakers, ethicists, and the public. The decisions made today will shape how AI influences society for generations to come.`,
+                questions: [
+                    {
+                        id: 'ai1',
+                        type: 'multiple-choice',
+                        question: 'According to the passage, which area has NOT benefited from AI integration?',
+                        options: ['Healthcare diagnostics', 'Financial fraud detection', 'Traffic management', 'Traditional agriculture'],
+                        answer: 'Traditional agriculture'
+                    },
+                    {
+                        id: 'ai2',
+                        type: 'true-false-ng',
+                        question: 'AI systems always make unbiased decisions.',
+                        answer: 'False'
+                    },
+                    {
+                        id: 'ai3',
+                        type: 'true-false-ng',
+                        question: 'Educational institutions are implementing reskilling programs for AI-related jobs.',
+                        answer: 'True'
+                    },
+                    {
+                        id: 'ai4',
+                        type: 'short-answer',
+                        question: 'What type of AI systems can generate human-like text?',
+                        answer: 'natural language processing',
+                        keywords: ['natural language processing', 'NLP', 'language models']
+                    },
+                    {
+                        id: 'ai5',
+                        type: 'summary-completion',
+                        question: 'Complete the summary using words from the passage:',
+                        summary: 'AI has transformed many industries, improving (1)_____ and (2)_____. However, it also raises concerns about job (3)_____, privacy issues, and (4)_____ decision-making. Responsible AI development requires (5)_____ between various stakeholders.',
+                        answer: ['efficiency', 'productivity', 'displacement', 'biased', 'collaboration'],
+                        keywords: [['efficiency'], ['productivity'], ['displacement'], ['biased'], ['collaboration']]
+                    }
+                ]
+            },
+            {
+                id: 'climate-change',
+                title: 'Climate Change: Causes and Consequences',
+                category: 'Environment',
+                difficulty: 'medium',
+                timeLimit: 20,
+                passage: `Climate change represents one of the most pressing challenges of our time, with far-reaching implications for ecosystems, human societies, and economic systems worldwide. The scientific consensus overwhelmingly indicates that human activities, particularly the burning of fossil fuels and deforestation, are the primary drivers of recent global warming trends.
+
+The greenhouse effect, a natural phenomenon that warms the Earth's surface, has been intensified by human emissions of carbon dioxide, methane, and other greenhouse gases. These emissions trap heat in the atmosphere, leading to rising global temperatures, melting ice caps, and rising sea levels. The consequences are already visible: more frequent extreme weather events, shifting climate zones, and disruptions to agricultural systems.
+
+Mitigation strategies focus on reducing greenhouse gas emissions through renewable energy adoption, energy efficiency improvements, and changes in land use practices. Carbon capture technologies and reforestation efforts aim to remove existing carbon from the atmosphere. However, these measures must be implemented at unprecedented scales to meet international climate targets.
+
+Adaptation measures are equally important, as some level of climate change is already unavoidable. Communities worldwide are developing strategies to cope with rising sea levels, changing precipitation patterns, and increased frequency of extreme weather events. These include building sea walls, developing drought-resistant crops, and improving early warning systems for natural disasters.
+
+International cooperation through agreements like the Paris Climate Accord demonstrates global recognition of the problem's urgency. However, effective implementation requires sustained commitment from all nations, balancing economic development with environmental protection. The transition to a low-carbon economy presents both challenges and opportunities for innovation and sustainable growth.`,
+                questions: [
+                    {
+                        id: 'cc1',
+                        type: 'multiple-choice',
+                        question: 'What does the passage identify as the primary drivers of recent global warming?',
+                        options: ['Natural climate cycles', 'Solar activity', 'Human activities', 'Volcanic eruptions'],
+                        answer: 'Human activities'
+                    },
+                    {
+                        id: 'cc2',
+                        type: 'true-false-ng',
+                        question: 'The greenhouse effect is entirely caused by human activities.',
+                        answer: 'False'
+                    },
+                    {
+                        id: 'cc3',
+                        type: 'true-false-ng',
+                        question: 'Climate change consequences are only visible in polar regions.',
+                        answer: 'False'
+                    },
+                    {
+                        id: 'cc4',
+                        type: 'true-false-ng',
+                        question: 'The Paris Climate Accord demonstrates international cooperation on climate issues.',
+                        answer: 'True'
+                    },
+                    {
+                        id: 'cc5',
+                        type: 'short-answer',
+                        question: 'Name two greenhouse gases mentioned in the passage.',
+                        answer: 'carbon dioxide, methane',
+                        keywords: ['carbon dioxide', 'methane', 'CO2', 'greenhouse gases']
+                    },
+                    {
+                        id: 'cc6',
+                        type: 'matching',
+                        question: 'Match the climate strategy with its description:',
+                        matches: {
+                            'Mitigation': 'Reducing greenhouse gas emissions',
+                            'Adaptation': 'Coping with unavoidable climate changes',
+                            'Carbon capture': 'Removing existing carbon from atmosphere',
+                            'Reforestation': 'Planting trees to absorb carbon dioxide'
+                        },
+                        answer: {
+                            'Mitigation': 'Reducing greenhouse gas emissions',
+                            'Adaptation': 'Coping with unavoidable climate changes',
+                            'Carbon capture': 'Removing existing carbon from atmosphere',
+                            'Reforestation': 'Planting trees to absorb carbon dioxide'
+                        }
+                    },
+                    {
+                        id: 'cc7',
+                        type: 'summary-completion',
+                        question: 'Complete the summary using words from the passage:',
+                        summary: 'Climate change is primarily driven by human (1)_____ that intensify the (2)_____ effect. This leads to rising (3)_____ and more extreme (4)_____. Both (5)_____ and adaptation strategies are needed to address this global challenge.',
+                        answer: ['activities', 'greenhouse', 'temperatures', 'weather', 'mitigation'],
+                        keywords: [['activities'], ['greenhouse'], ['temperatures'], ['weather'], ['mitigation']]
+                    }
+                ]
+            }
+        ];
+
+        // Application state
+        const app = {
+            tests: ieltsTests,
+            currentTest: null,
+            answers: {},
+            timeRemaining: 0,
+            isTimerRunning: false,
+            startTime: null,
+            elapsedTime: 0,
+            timerInterval: null,
+            showResults: false,
+            score: 0
+        };
+
+        // Fuzzy matching functions
+        function fuzzyMatch(userAnswer, correctAnswer, keywords) {
+            if (!userAnswer || !correctAnswer) return false;
+            
+            const user = userAnswer.toLowerCase().trim();
+            const correct = Array.isArray(correctAnswer) ? correctAnswer : [correctAnswer];
+            
+            // Check exact matches first
+            for (const answer of correct) {
+                if (user === answer.toLowerCase().trim()) return true;
+            }
+            
+            // Check keyword matches
+            if (keywords) {
+                for (const keyword of keywords) {
+                    if (user.includes(keyword.toLowerCase())) return true;
+                }
+            }
+            
+            // Check partial matches (at least 60% similarity)
+            for (const answer of correct) {
+                const similarity = stringSimilarity(user, answer.toLowerCase().trim());
+                if (similarity >= 0.6) return true;
+            }
+            
+            return false;
+        }
+
+        function stringSimilarity(str1, str2) {
+            const longer = str1.length > str2.length ? str1 : str2;
+            const shorter = str1.length > str2.length ? str2 : str1;
+            
+            if (longer.length === 0) return 1.0;
+            
+            const editDistance = levenshteinDistance(longer, shorter);
+            return (longer.length - editDistance) / longer.length;
+        }
+
+        function levenshteinDistance(str1, str2) {
+            const matrix = [];
+            
+            for (let i = 0; i <= str2.length; i++) {
+                matrix[i] = [i];
+            }
+            
+            for (let j = 0; j <= str1.length; j++) {
+                matrix[0][j] = j;
+            }
+            
+            for (let i = 1; i <= str2.length; i++) {
+                for (let j = 1; j <= str1.length; j++) {
+                    if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
+                        matrix[i][j] = matrix[i - 1][j - 1];
+                    } else {
+                        matrix[i][j] = Math.min(
+                            matrix[i - 1][j - 1] + 1,
+                            matrix[i][j - 1] + 1,
+                            matrix[i - 1][j] + 1
+                        );
+                    }
+                }
+            }
+            
+            return matrix[str2.length][str1.length];
+        }
+
+        // Timer functions
+        function startTimer() {
+            if (app.timerInterval) clearInterval(app.timerInterval);
+            
+            app.timerInterval = setInterval(() => {
+                if (app.timeRemaining > 0) {
+                    app.timeRemaining--;
+                    app.elapsedTime++;
+                    updateTimerDisplay();
+                    
+                    if (app.timeRemaining === 0) {
+                        stopTimer();
+                        submitTest();
+                    }
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (app.timerInterval) {
+                clearInterval(app.timerInterval);
+                app.timerInterval = null;
+            }
+            app.isTimerRunning = false;
+        }
+
+        function updateTimerDisplay() {
+            const timerElement = document.getElementById('timer-display');
+            if (timerElement) {
+                const minutes = Math.floor(app.timeRemaining / 60);
+                const seconds = app.timeRemaining % 60;
+                timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (app.timeRemaining <= 300) { // 5 minutes warning
+                    timerElement.classList.add('warning');
+                } else {
+                    timerElement.classList.remove('warning');
+                }
+            }
+        }
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Test management functions
+        function startTest(testId) {
+            const test = app.tests.find(t => t.id === testId);
+            if (!test) return;
+            
+            app.currentTest = test;
+            app.answers = {};
+            app.timeRemaining = test.timeLimit * 60;
+            app.isTimerRunning = true;
+            app.startTime = Date.now();
+            app.elapsedTime = 0;
+            app.showResults = false;
+            app.score = 0;
+            
+            startTimer();
+            renderApp();
+        }
+
+        function toggleTimer() {
+            if (app.isTimerRunning) {
+                stopTimer();
+            } else {
+                app.isTimerRunning = true;
+                startTimer();
+            }
+        }
+
+        function saveProgress() {
+            if (!app.currentTest) return;
+            localStorage.setItem(`ielts_answers_${app.currentTest.id}`, JSON.stringify(app.answers));
+            localStorage.setItem(`ielts_timer_${app.currentTest.id}`, JSON.stringify({
+                timeRemaining: app.timeRemaining,
+                elapsedTime: app.elapsedTime,
+                isTimerRunning: app.isTimerRunning
+            }));
+            showNotification('Progress saved successfully!', 'success');
+        }
+
+        function loadProgress() {
+            if (!app.currentTest) return;
+            
+            const savedAnswers = localStorage.getItem(`ielts_answers_${app.currentTest.id}`);
+            const savedTimer = localStorage.getItem(`ielts_timer_${app.currentTest.id}`);
+            
+            if (savedAnswers) {
+                app.answers = JSON.parse(savedAnswers);
+            }
+            
+            if (savedTimer) {
+                const timerData = JSON.parse(savedTimer);
+                app.timeRemaining = timerData.timeRemaining;
+                app.elapsedTime = timerData.elapsedTime;
+                app.isTimerRunning = timerData.isTimerRunning;
+                
+                if (app.isTimerRunning) {
+                    startTimer();
+                }
+            }
+            
+            renderApp();
+            showNotification('Progress loaded successfully!', 'success');
+        }
+
+        function resetTest() {
+            if (!app.currentTest) return;
+            if (confirm('Are you sure you want to reset the test? All progress will be lost.')) {
+                app.answers = {};
+                app.timeRemaining = app.currentTest.timeLimit * 60;
+                app.isTimerRunning = false;
+                app.elapsedTime = 0;
+                localStorage.removeItem(`ielts_answers_${app.currentTest.id}`);
+                localStorage.removeItem(`ielts_timer_${app.currentTest.id}`);
+                stopTimer();
+                renderApp();
+            }
+        }
+
+        function submitTest() {
+            if (!app.currentTest) return;
+            
+            stopTimer();
+            
+            let correctCount = 0;
+            app.currentTest.questions.forEach(question => {
+                const userAnswer = app.answers[question.id];
+                let isCorrect = false;
+                
+                switch (question.type) {
+                    case 'multiple-choice':
+                    case 'true-false-ng':
+                        isCorrect = userAnswer === question.answer;
+                        break;
+                    case 'short-answer':
+                        isCorrect = fuzzyMatch(userAnswer, question.answer, question.keywords);
+                        break;
+                    case 'matching':
+                        if (typeof userAnswer === 'object' && typeof question.answer === 'object') {
+                            isCorrect = JSON.stringify(userAnswer) === JSON.stringify(question.answer);
+                        }
+                        break;
+                    case 'summary-completion':
+                        if (Array.isArray(userAnswer) && Array.isArray(question.answer)) {
+                            isCorrect = userAnswer.every((answer, index) => 
+                                fuzzyMatch(answer, question.answer[index], question.keywords?.[index])
+                            );
+                        }
+                        break;
+                }
+                
+                if (isCorrect) correctCount++;
+            });
+            
+            app.score = correctCount;
+            app.showResults = true;
+            
+            // Clear saved progress
+            localStorage.removeItem(`ielts_answers_${app.currentTest.id}`);
+            localStorage.removeItem(`ielts_timer_${app.currentTest.id}`);
+            
+            showResults();
+        }
+
+        function showResults() {
+            const modal = document.getElementById('results-modal');
+            if (modal) {
+                modal.style.display = 'flex';
+            }
+        }
+
+        function hideResults() {
+            const modal = document.getElementById('results-modal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        function backToTests() {
+            hideResults();
+            app.currentTest = null;
+            app.answers = {};
+            app.showResults = false;
+            app.score = 0;
+            stopTimer();
+            renderApp();
+        }
+
+        function reviewAnswers() {
+            hideResults();
+            renderApp();
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-lg text-white font-medium z-50 transition-all duration-300 ${
+                type === 'success' ? 'bg-green-500' : 'bg-blue-500'
+            }`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Answer handling functions
+        function handleAnswerChange(questionId, answer) {
+            app.answers[questionId] = answer;
+        }
+
+        function handleMatchingChange(questionId, key, value) {
+            if (!app.answers[questionId]) {
+                app.answers[questionId] = {};
+            }
+            app.answers[questionId][key] = value;
+        }
+
+        function handleSummaryChange(questionId, index, value) {
+            if (!app.answers[questionId]) {
+                app.answers[questionId] = [];
+            }
+            app.answers[questionId][index] = value;
+        }
+
+        // Rendering functions
+        function renderTestSelection() {
+            return `
+                <div class="test-selection">
+                    <div class="text-center mb-12">
+                        <h1 class="text-5xl font-bold text-white mb-4">IELTS Academic Reading</h1>
+                        <p class="text-xl text-white/80">Master your reading comprehension with authentic IELTS-style tests</p>
+                    </div>
+                    
+                    <div class="test-grid">
+                        ${app.tests.map(test => `
+                            <div class="test-card glass-morphism">
+                                <div class="test-header">
+                                    <div>
+                                        <h3 class="test-title">${test.title}</h3>
+                                        <p class="test-category">${test.category}</p>
+                                    </div>
+                                    <span class="difficulty-badge difficulty-${test.difficulty}">${test.difficulty}</span>
+                                </div>
+                                
+                                <div class="test-meta">
+                                    <div class="test-meta-item">
+                                        <i class="fas fa-clock"></i>
+                                        <span>${test.timeLimit} minutes</span>
+                                    </div>
+                                    <div class="test-meta-item">
+                                        <i class="fas fa-question-circle"></i>
+                                        <span>${test.questions.length} questions</span>
+                                    </div>
+                                </div>
+                                
+                                <p class="test-description">
+                                    Practice authentic IELTS Academic Reading format with realistic timing and question types. 
+                                    Perfect for improving your reading comprehension and test-taking skills.
+                                </p>
+                                
+                                <button onclick="startTest('${test.id}')" class="start-btn">
+                                    <i class="fas fa-play"></i>
+                                    Start Test
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderTestInterface() {
+            if (!app.currentTest) return '';
+            
+            return `
+                <div class="exam-container">
+                    <div class="header-gradient">
+                        <h1 class="text-2xl font-bold mb-2">IELTS Academic Reading</h1>
+                        <p class="text-white/90">${app.currentTest.title}</p>
+                    </div>
+                    
+                    <div class="exam-layout">
+                        <div class="passage-panel">
+                            <h2 class="text-xl font-semibold mb-6 text-gray-800">Reading Passage</h2>
+                            <div class="prose max-w-none">
+                                ${app.currentTest.passage.split('\n\n').map(paragraph => 
+                                    `<p class="mb-6 text-justify leading-relaxed text-gray-700">${paragraph}</p>`
+                                ).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="questions-panel">
+                            <h2 class="text-xl font-semibold mb-6 text-gray-800">Questions</h2>
+                            ${app.currentTest.questions.map((question, index) => `
+                                <div class="question-card">
+                                    <div class="question-header">
+                                        <div class="flex items-center">
+                                            <span class="question-number-badge">${index + 1}</span>
+                                            <div>
+                                                <div class="font-medium text-gray-900">${question.type === 'multiple-choice' ? 'Choose the correct letter, A, B, C or D.' :
+                                                  question.type === 'true-false-ng' ? 'Do the following statements agree with the information given in the passage?' :
+                                                  question.type === 'short-answer' ? 'Answer the questions using NO MORE THAN THREE WORDS.' :
+                                                  question.type === 'matching' ? 'Match the items with the correct descriptions.' :
+                                                  'Complete the summary below.'}</div>
+                                            </div>
+                                        </div>
+                                        <span class="question-type-badge">${question.type.replace('-', ' ')}</span>
+                                    </div>
+                                    
+                                    <div class="text-gray-800 mb-4">${question.question}</div>
+                                    
+                                    ${renderQuestion(question, index)}
+                                    
+                                    ${app.showResults ? renderAnswerFeedback(question, index) : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timer-widget glass-morphism">
+                    <div class="timer-display" id="timer-display">${formatTime(app.timeRemaining)}</div>
+                    <div class="timer-controls">
+                        <button onclick="toggleTimer()" class="timer-btn">
+                            <i class="fas ${app.isTimerRunning ? 'fa-pause' : 'fa-play'}"></i>
+                        </button>
+                        <button onclick="saveProgress()" class="timer-btn">
+                            <i class="fas fa-save"></i>
+                        </button>
+                        <button onclick="loadProgress()" class="timer-btn">
+                            <i class="fas fa-upload"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="control-panel glass-morphism">
+                    <button onclick="resetTest()" class="control-btn danger">
+                        <i class="fas fa-redo"></i>
+                        Reset
+                    </button>
+                    <button onclick="submitTest()" class="control-btn primary">
+                        <i class="fas fa-check"></i>
+                        Submit Test
+                    </button>
+                </div>
+                
+                ${app.showResults ? renderResultsModal() : ''}
+            `;
+        }
+
+        function renderQuestion(question, index) {
+            const userAnswer = app.answers[question.id];
+            
+            switch (question.type) {
+                case 'multiple-choice':
+                    return `
+                        <div class="space-y-3">
+                            ${question.options.map((option, optIndex) => `
+                                <div class="option-card ${userAnswer === option ? 'selected' : ''}" 
+                                     onclick="handleAnswerChange('${question.id}', '${option}')">
+                                    <input type="radio" 
+                                           name="${question.id}" 
+                                           value="${option}"
+                                           ${userAnswer === option ? 'checked' : ''}>
+                                    <span class="option-letter">${String.fromCharCode(65 + optIndex)}</span>
+                                    <span>${option}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    
+                case 'true-false-ng':
+                    return `
+                        <div class="tf-options">
+                            ${['TRUE', 'FALSE', 'NOT GIVEN'].map(option => `
+                                <div class="tf-option">
+                                    <div class="tf-card ${userAnswer === option ? 'selected' : ''}" 
+                                         onclick="handleAnswerChange('${question.id}', '${option}')">
+                                        <input type="radio" 
+                                               name="${question.id}" 
+                                               value="${option}"
+                                               ${userAnswer === option ? 'checked' : ''}>
+                                        <label>${option}</label>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    
+                case 'short-answer':
+                    return `
+                        <input type="text" 
+                               class="input-field"
+                               value="${userAnswer || ''}"
+                               placeholder="Write your answer here..."
+                               onchange="handleAnswerChange('${question.id}', this.value)">
+                    `;
+                    
+                case 'matching':
+                    return `
+                        <div class="matching-grid">
+                            <div class="matching-column">
+                                <h4 class="font-semibold mb-4 text-gray-700">Items</h4>
+                                ${Object.keys(question.matches).map((key, itemIndex) => `
+                                    <div class="matching-item">
+                                        <strong>${index + 1}.</strong> ${key}
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="matching-column">
+                                <h4 class="font-semibold mb-4 text-gray-700">Descriptions</h4>
+                                ${Object.keys(question.matches).map(key => `
+                                    <div class="matching-item">
+                                        <select class="matching-select"
+                                                onchange="handleMatchingChange('${question.id}', '${key}', this.value)">
+                                            <option value="">Choose...</option>
+                                            ${Object.values(question.matches).map(value => `
+                                                <option value="${value}" ${userAnswer?.[key] === value ? 'selected' : ''}>
+                                                    ${value}
+                                                </option>
+                                            `).join('')}
+                                        </select>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                    
+                case 'summary-completion':
+                    return `
+                        <div class="summary-box">
+                            <div class="summary-text">
+                                ${question.summary.split(/\(\d+\)/).map((part, blankIndex) => `
+                                    <span>
+                                        ${part}
+                                        ${blankIndex < (question.summary.match(/\(\d+\)/g) || []).length ? `
+                                            <span class="summary-blank">
+                                                <input type="text" 
+                                                       value="${userAnswer?.[blankIndex] || ''}"
+                                                       placeholder="${blankIndex + 1}"
+                                                       onchange="handleSummaryChange('${question.id}', ${blankIndex}, this.value)">
+                                            </span>
+                                        ` : ''}
+                                    </span>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                    
+                default:
+                    return '<div>Unknown question type</div>';
+            }
+        }
+
+        function renderAnswerFeedback(question, index) {
+            const userAnswer = app.answers[question.id];
+            const isCorrect = fuzzyMatch(userAnswer, question.answer, question.keywords);
+            
+            return `
+                <div class="answer-feedback ${isCorrect ? 'correct' : 'incorrect'}">
+                    <div class="feedback-header">
+                        <i class="fas ${isCorrect ? 'fa-check-circle' : 'fa-times-circle'}"></i>
+                        <span>${isCorrect ? 'Correct' : 'Incorrect'}</span>
+                    </div>
+                    <div class="feedback-details">
+                        <div><strong>Your answer:</strong> ${userAnswer || 'Not answered'}</div>
+                        <div><strong>Correct answer:</strong> ${Array.isArray(question.answer) ? question.answer.join(', ') : question.answer}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderResultsModal() {
+            return `
+                <div class="results-modal" id="results-modal">
+                    <div class="results-content">
+                        <div class="results-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="results-title">Test Completed!</div>
+                        <div class="results-score">${app.score} / ${app.currentTest.questions.length}</div>
+                        <div class="results-percentage">
+                            ${Math.round((app.score / app.currentTest.questions.length) * 100)}%
+                        </div>
+                        <div class="results-time">
+                            <i class="fas fa-clock"></i> Time: ${formatTime(app.elapsedTime)}
+                        </div>
+                        <div class="results-actions">
+                            <button onclick="reviewAnswers()" class="results-btn secondary">
+                                <i class="fas fa-eye"></i> Review Answers
+                            </button>
+                            <button onclick="backToTests()" class="results-btn primary">
+                                <i class="fas fa-home"></i> Back to Tests
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderApp() {
+            const appElement = document.getElementById('app');
+            
+            if (app.currentTest) {
+                appElement.innerHTML = renderTestInterface();
+                if (app.isTimerRunning) {
+                    updateTimerDisplay();
+                }
+            } else {
+                appElement.innerHTML = renderTestSelection();
+            }
+        }
+
+        // Initialize app
+        function initApp() {
+            renderApp();
+        }
+
+        // Start the application
+        initApp();
+    </script>
+</body>
+</html>
